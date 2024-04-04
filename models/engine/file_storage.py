@@ -16,7 +16,7 @@ class FileStorage:
                 if key.split(".")[0] == cls.__name__:
                     # add value with key.
                     filters[key] = FileStorage.__objects[key]
-                return filters
+            return filters
         else:
             return FileStorage.__objects
 
