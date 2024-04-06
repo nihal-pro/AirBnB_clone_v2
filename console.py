@@ -126,19 +126,20 @@ class HBNBCommand(cmd.Cmd):
         new_instance = HBNBCommand.classes[arg[0]]()
         for parameter in arg[1:]:
             parameters = parameter.split("=")
-            key = parameters[0]
-            value = parameters[1]
-            if value[0] == '"' and value[-1] == '"':
-                value = value[1:-1] 
-                value = value.replace('"', "\'")
-                value = value.replace('_', " ")
-            elif "." in value:
-                value = float(value)
-            elif bool(re.match("^-?[0-9]+$", value)):
-                value = int(value)
-            else:
-                continue
-            setattr(new_instance, key, value)
+            if len(parameters) > 1:
+                key = parameters[0]
+                value = parameters[1]
+                if value[0] == '"' and value[-1] == '"':
+                    value = value[1:-1] 
+                    value = value.replace('"', "\'")
+                    value = value.replace('_', " ")
+                elif "." in value:
+                    value = float(value)
+                elif bool(re.match("^-?[0-9]+$", value)):
+                    value = int(value)
+                else:
+                    continue
+                setattr(new_instance, key, value)
         print(new_instance.id)
         new_instance.save()
 
