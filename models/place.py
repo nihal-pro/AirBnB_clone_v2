@@ -4,6 +4,9 @@ from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.sql.schema import ForeignKey
+from models.city import City
+from models.review import Review
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -19,3 +22,15 @@ class Place(BaseModel, Base):
     price_by_night = Column(Integer, nullable=False, default=0)
     latitude =  Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
+    
+    reviews = relationship("City", backref="place", cascade="all, delete")
+
+    @property
+    def reviews(self):
+        """ relationship between State and City """
+        from models.__init__ import storage
+        reviews = []
+        for pl in storage.all(Place).values():
+            if self.id == pl.place_id:
+                reviews.append(pl)
+        return reviews
