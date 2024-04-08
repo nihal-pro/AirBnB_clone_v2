@@ -2,13 +2,21 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel
 from models.base_model import Base
-from sqlalchemy import Column, String, Integer, Float
+from sqlalchemy import Column, String, Integer, Float, Table
 from sqlalchemy.sql.schema import ForeignKey
 from models.city import City
 from models.review import Review
 from sqlalchemy.orm import relationship
+from models.amenity import Amenity
+from sqlalchemy.ext.declarative import declarative_base
 
-
+Base = declarative_base()
+place_amenity = Table('lace_amenity', Base.metadata,
+        Column('place_id', String(60), ForeignKey('places.id', onupdate='CASCADE',
+                                            ondelete='CASCADE'), primary_key=True, nullable=False),
+        Column('amenity_id', String(60), ForeignKey('amenities.id', onupdate='CASCADE',
+                                            ondelete='CASCADE'), primary_key=True, nullable=False),
+)
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
@@ -24,13 +32,35 @@ class Place(BaseModel, Base):
     longitude = Column(Float, nullable=True)
     
     reviews = relationship("City", backref="place", cascade="all, delete")
+    amenities = relationship('Amenity', secondary="place_amenity",
+                                 back_populates="place_amenities",
+                                 viewonly=False)
 
     @property
     def reviews(self):
-        """ relationship between State and City """
+        """ relationship between review and Place """
         from models.__init__ import storage
         reviews = []
-        for pl in storage.all(Place).values():
-            if self.id == pl.place_id:
-                reviews.append(pl)
+        for rev in storage.all(Review).values():
+            if self.id == rev.place_id:
+                reviews.append(rev)
         return reviews
+
+    @property
+    def amenities(self):
+        """ relationship between Amenity and Place """
+        from models.__init__ import storage
+        amenities = []
+        for amen in storage.all(Amenity).values():
+            if self.id == amen.place_id:
+                amenities.append(rev)
+        return reviews
+    @amenities.setter
+    def amenities(self, Amenity):
+        """ set amenities """
+        if isinstance(amenity, Amenity):
+            self.amenity_ids.append(amenity.id)
+    
+        
+    
+
