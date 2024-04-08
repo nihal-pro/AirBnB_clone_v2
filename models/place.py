@@ -4,11 +4,12 @@ from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import Column, String, Integer, Float, Table
 from sqlalchemy.sql.schema import ForeignKey
-from models.city import City
 from models.review import Review
 from sqlalchemy.orm import relationship
 from models.amenity import Amenity
 from sqlalchemy.ext.declarative import declarative_base
+from models.city import City
+from models.user import User
 
 Base = declarative_base()
 place_amenity = Table('lace_amenity', Base.metadata,
