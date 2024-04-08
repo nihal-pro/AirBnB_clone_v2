@@ -9,7 +9,6 @@ from sqlalchemy.orm import relationship
 from models.amenity import Amenity
 from sqlalchemy.ext.declarative import declarative_base
 from models.city import City
-from models.user import User
 
 Base = declarative_base()
 place_amenity = Table('lace_amenity', Base.metadata,
