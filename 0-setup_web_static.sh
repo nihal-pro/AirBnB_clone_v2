@@ -7,7 +7,13 @@ if ! command -v nginx &> /dev/null; then
 fi
 # create all directory
 sudo mkdir -p /data/web_static/shared /data/web_static/releases/test
-sudo sh -c 'echo "Holberton School" > /data/web_static/releases/test/index.html'
+sudo echo "<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>" | sudo tee /data/web_static/releases/test/index.html
 if [ -L "/data/web_static/current" ]; then
     sudo rm -r /data/web_static/current
 fi
