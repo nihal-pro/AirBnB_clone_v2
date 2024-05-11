@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Prepare your web servers
-
 # if command not found or have some error install nginx, redirection output and err to null
 if ! command -v nginx &> /dev/null; then
     sudo apt-get update -y && sudo apt-get install nginx -y
