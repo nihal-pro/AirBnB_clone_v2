@@ -40,7 +40,7 @@ def c(text):
 def python(text="is cool"):
     """Displays 'Python' followed by the value of <text>.
 
-    Replaces any underscores in <text> with slashes.
+    Replaces any underscores in <text> with slashes
     """
     text = text.replace("_", " ")
     return "Python {}".format(text)
