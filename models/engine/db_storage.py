@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from sqlalchemy.orm import scoped_session
 from models.base_model import Base
+from models.place_amenity import place_amenity
 
 class DBStorage:
     """Create class dbdtorage"""

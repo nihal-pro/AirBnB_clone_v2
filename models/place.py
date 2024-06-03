@@ -5,14 +5,10 @@ from models.base_model import Base
 from sqlalchemy import Column, String, Integer, Float, Table
 from sqlalchemy.sql.schema import ForeignKey
 from sqlalchemy.orm import relationship
+from models.place_amenity import place_amenity
+from models.amenity import Amenity
 
 
-place_amenity = Table('lace_amenity', Base.metadata,
-        Column('place_id', String(60), ForeignKey('places.id', onupdate='CASCADE',
-                                            ondelete='CASCADE'), primary_key=True, nullable=False),
-        Column('amenity_id', String(60), ForeignKey('amenities.id', onupdate='CASCADE',
-                                            ondelete='CASCADE'), primary_key=True, nullable=False),
-)
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = "places"
@@ -31,6 +27,12 @@ class Place(BaseModel, Base):
     amenities = relationship('Amenity', secondary="place_amenity",
                                  back_populates="place_amenities",
                                  viewonly=False)
+    place_amenities = relationship("Place", secondary=place_amenity, viewonly=False)
+    class Amenity(BaseModel, Base):
+        """ Amenity class """
+    __tablename__ = 'amenities'
+    name = Column(String(128), nullable=False)
+
 
     @property
     def reviews(self):
@@ -56,6 +58,7 @@ class Place(BaseModel, Base):
         """ set amenities """
         if isinstance(amenity, Amenity):
             self.amenity_ids.append(amenity.id)
+    
     
         
     
