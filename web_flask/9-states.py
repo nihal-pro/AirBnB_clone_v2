@@ -6,6 +6,10 @@ Routes:
     /states: HTML page with a list of all State objects.
     /states/<id>: HTML page displaying the given state with <id>.
 """
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from models import storage
 from flask import Flask
 from flask import render_template
