@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""This module defines a class to manage DB storage SQLalchemy"""
+"""This module defines a class to manage db storage SQLalchemy"""
 import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
